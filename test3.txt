@@ -1,0 +1,348 @@
+Affiliated to Bharathiar University, Accredited by NAAC
+Jothipuram, Coimbatore – 641 047
+RECORD NOTE BOOK
+PG AND RESEARCH DEPARTMENT OF
+COMPUTER SCIENCE
+BATCH : 2023 - 2025
+SEMESTER : II
+ SUBJECT : DATA MINING LAB USING R
+2023 – 2024
+Affiliated to Bharathiar University, Accredited by NAAC
+Jothipuram, Coimbatore – 641 047
+RECORD NOTE BOOK
+PG and Research Department of
+Computer Science
+This is to certify that this is a bonafide record of work done by the candidate
+Name : …………….…..………..…
+Reg. No : …………..………………..
+ Class : .............................................
+Course : .............................................
+for the Bharathiar University Examinations held on .......................................................
+during the academic year 2022 - 2023.
+Staff-in-charge Head of the Department
+Internal Examiner External Examiner
+INDEX
+S.NO DATE CONTENTS PAGE NO.
+1
+ASSOCIATION RULES-APRIORI
+ALGORITHM
+2 K-MEANS CLUSTERING
+3 HIERARCHICAL CLUSTERS
+4 CLASSIFICATION ALGORITHM
+5 DECISION TREE ALGORITHM
+6 LINEAR REGRESSION
+7 DATA VISUALIZATION
+1.ASSOCIATION APRIORI ALGORITHM
+ EX.NO: 01
+ DATE:
+AIM: To create a data mining program for association rule mining using apriori
+ algorithm using R language.
+ALGORITHM:
+ STEP1: Import word to the R language environment.
+ STEP2: Declare the header packages.
+ STEP3: Association rules are included using Library( ) in the program .
+ Library(“arules”);
+ STEP4: The crosstable function allows a basic cross tabulation to be performed and
+ includes a large number of options that can be incorporated into the table.
+ctsupportcrossTable(Groceries,measure=”support”,sort=True)
+ STEP 5: Each line is called transaction and each column in a row represents an item.
+ STEP 6: we will visualize the top ten items by frequency by using the following
+ statements.
+itemFrequencyPlot(Groceries,support=0.1,ccx.names=0.8);
+ STEP 7: Use the aggregate which has been done using split method.
+Groceries_level1 aggregate(Groceries, by=”level1”)
+ STEP 8: Run the algorithm using the statement the below statement ,where the results
+ are stored in the object Rules
+ Rulesapriori(Groceries_level1,parameter=list(supp=0.01,conf=0.07));
+ STEP 9: Once the rules have been created then the researcher can review and filter
+ the rules down to a manageable subset. This can be alone a variety of way
+using both graphs and by simply inspecting the rules.
+Inspect(head(rules))
+1. ASSOCIATION RULE - APRIORI ALGORITHM
+data(Groceries)
+library(arules)
+library(Matrix)
+image(Groceries)
+ct<-crossTable(Groceries, sort=TRUE)
+ct[1:5,1:5]
+ctsupport<-crossTable(Groceries,measure="support",sort=TRUE)
+ctsupport[1:5,1:5]
+itemFrequencyPlot(Groceries,support=0.1,cex.names=0.8)
+head(itemInfo(Groceries))
+Groceries_level1<- aggregate(Groceries,by="level1")
+Groceries_level1
+head(itemInfo(Groceries_level1))
+rules<-apriori(Groceries_level1, parameter=list(supp=0.01,conf=0.07))
+inspect(head(rules))
+
+
+
+2. K-MEANS CLUSTERING
+EX.NO: 02
+DATE:
+AIM: To create a data mining program for K-Means Clustering using R language.
+ALGORITHM
+STEP 1: Define the dataset iris2 to apply the clustering technique.
+STEP 2: The Species field is removed from the data to form clusters.
+ iris2$Species<-NULL
+STEP 3: Apply kmeans() function to iris2 and store the cluster result in kmeans.result.
+ (kmeans.result<-kmeans(iris2,3)
+STEP 4: The clustering result is then compared with the class label(Species) to check
+ whether similar objects are grouped together.
+ Table(iris$Species,kmeans.result$cluster)
+STEP 5: Clusters are plotted in a graph using plot( ) function.
+STEP 6: The cluster centres are plotted using point( ) function.
+
+
+ 2. K-MEANS CLUSTERING
+iris2<-iris
+iris2$Species<-NULL
+(kmeans.result <- kmeans(iris2, 3))
+table(iris$Species, kmeans.result$cluster)
+plot(iris2[c("Sepal.Length", "Sepal.Width")], col = kmeans.result$cluster)
+points(kmeans.result$centers[,c("Sepal.Length", "Sepal.Width")], col = 1:3, pch = 8, cex=2)
+
+
+3. HIERARCHICAL CLUSTERS
+EX.NO: 03
+DATE:
+AIM: To create a data mining program for hierarchical clustering using R language.
+ALGORITHM
+STEP 1: Start the process.
+STEP 2: Include the Dataset in the program
+ data(randu)
+STEP 3: A group of records is selected and stored in an object ind
+ ind<-sample(1:dim(randu)[1],20)
+STEP 4: A field x is removed from the object ransample
+ ransample$x<-NULL
+STEP 5: We can perform agglomerative HC with hclust function. First, we compute the
+ dissimilarity values with dist and then feed these values into hclust and specify the
+ agglomeration method to be used.
+ hierclust<-hclust(dist(ransample),method="ave")
+STEP 6: We can plot the dendrogram after this usinhg the plot( )
+ plot(hierclust,hang=-1,labels=randu$x[ind])
+STEP 8: By default the row names or row numbers of the original data are used.
+ if labels=FALSE no labels are plotted.
+STEP 9: Thus clusters are formed.
+3.HIERARCHICAL CLUSTERING
+data(randu)
+ind<-sample(1:dim(randu)[1],20)
+ind
+ransample<-randu[ind,]
+ransample$x<-NULL
+hierclust<-hclust(dist(ransample),method="ave")
+attributes(hierclust)
+plot(hierclust,hang=-1,labels=randu$x[ind])
+rect.hclust(hierclust,k=3)
+groups<-cutree(hierclust,k=3)
+
+4. CLASSIFICATION ALGORITHM
+EX.NO:04
+DATE:
+AIM: To create a data mining program for classification algorithm using R language.
+ALGORITHM
+STEP1: To install e1071 package in R, type
+ install.packages('e1071', dependencies = TRUE)
+STEP2: These two commands specify the usage of the cats dataset .In the third command,
+ the parameter "Sex~." indicates the attribute (column) of the dataset to be used as
+ instance classes
+ library(MASS)
+ data(cats)
+ model <- svm(Sex~., data = cats)
+STEP3: For information on the parameters of the model and on the number of support
+ vectors,use the following commands
+ print(model)
+ summary(model)
+STEP4: To see the built model with a scatter plot of the input, the plot() function can be
+ used.
+plot(model, cats)
+STEP5: Divide the cats dataset into a train and a test set:
+ index <- 1:nrow(cats)
+ testindex <- sample(index, trunc(length(index)/3))
+ testset <- cats[testindex,]
+ trainset <- cats[-testindex,]
+STEP6: Now we run the model again using the train set and predict classes using the test set
+ in order to verify if the model has good generalization.
+ model <- svm(Sex~., data = trainset)
+ prediction <- predict(model, testset[,-1])
+STEP7: A cross-tabulation of the true versus the predicted values yields (the confusion
+ matrix): tab <- table(pred = prediction, true = testset[,1])
+STEP8: Model accuracy rates can be computed using the classAgreement() function:
+ classAgreement(tab)
+STEP9: The tune() function can be used to tune hyperparameters of statistical methods using
+ a grid search over the supplied parameter ranges.
+ tuned <- tune.svm(Sex~., data = trainset, gamma = 10^(-6:-1),cost=10^(1:2))
+ summary(tuned)
+4.CLASSIFICATION PROGRAM
+library(e1071)
+library(MASS)
+data(cats)
+model <- svm(Sex~., data = cats)
+print(model)
+summary(model)
+plot(model, cats)
+index <- 1:nrow(cats)
+testindex <- sample(index, trunc(length(index)/3))
+testset <- cats[testindex,]
+trainset <- cats[-testindex,]
+model <- svm(Sex~., data = trainset)
+prediction <- predict(model, testset[,-1])
+tab <- table(pred = prediction, true = testset[,1])
+tab
+classAgreement(tab)
+tuned <- tune.svm(Sex~., data = trainset, gamma = 10^(-6:-1), cost = 10^(1:2))
+summary(tuned)
+
+
+
+5.DECISION TREE ALGORITHM
+EX.NO:5
+DATE:
+AIM: To create a data mining program for decision tree algorithm using R language.
+ALGORITHM
+STEP1 : Include the library file : library(party)
+STEP2 : Select the records from the dataset iris and store in the object ind
+ ind <- sample(2, nrow(iris), replace = TRUE, prob = c(0.7, 0.3))
+STEP3 : Define the traindata and testdata
+ trainData <- iris[ind == 1, ]
+ testData <- iris[ind == 2, ]
+STEP4 : Define the object myFormula
+ myFormula <- Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width
+STEP5 : Construct the decision tree
+ iris_ctree <- ctree(myFormula, data = trainData)
+ table(predict(iris_ctree), trainData$Species)
+print(iris_ctree)
+plot(iris_ctree)
+STEP5 : Tabulate the predicted result
+ testPred <- predict(iris_ctree, newdata = testData)
+ table(testPred, testData$Species)
+5.DECISION TREE PROGRAM
+library(party)
+str(iris)
+ind <- sample(2, nrow(iris), replace = TRUE, prob = c(0.7, 0.3))
+trainData <- iris[ind == 1, ]
+testData <- iris[ind == 2, ]
+myFormula <- Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width
+iris_ctree <- ctree(myFormula, data = trainData)
+table(predict(iris_ctree), trainData$Species)
+print(iris_ctree)
+plot(iris_ctree)
+plot(iris_ctree, type = "simple")
+testPred <- predict(iris_ctree, newdata = testData)
+table(testPred, testData$Species)
+
+
+
+6.LINEAR REGRESSION
+EX.NO:06
+DATE:
+AIM: To create a data mining program for linear regression using R language.
+ALGORITHM
+STEP1: Load and view dataset
+ data("iris")
+ str(iris)
+ head(iris)
+STEP2: Preprocess the dataset
+ Y<- iris[,"Sepal.Width"]
+ X<- iris[,"Sepal.Length"]
+STEP3: Find correlation between “Sepal.Length” and “Sepal.Width” by applying
+ Least Squares Linear Regression Model
+xycorr<- cor(Y,X, method="pearson")
+plot(Y~X, col=X)
+model1<- lm(Y~X)
+model1
+plot(Y~X, col=X)
+abline(model1, col="blue", lwd=3)
+STEP4: Check correlation between “Petal.Length” and “Petal.Width” by applying
+ Least Squares Linear Regression Model
+ U<- iris[,"Petal.Width"]
+ V<- iris[,"Petal.Length"]
+ xycorr<- cor(U,V, method="pearson")
+ xycorr
+ plot(U~V, col=V)
+ model2<- lm(U~V)
+ model2
+ plot(U~V, col=V)
+ abline(model2, col="blue", lwd=3)
+STEP5: Perform prediction
+ p1<- predict(model1,data.frame("X"=20))
+ p2<- predict(model2,data.frame("V"=15))
+6. LINEAR REGRESSION
+require("datasets")
+data("iris")
+str(iris)
+head(iris)
+Y<- iris[,"Sepal.Width"]
+X<- iris[,"Sepal.Length"]
+head(X)
+head(Y)
+xycorr<- cor(Y,X, method="pearson")
+xycorr
+plot(Y~X, col=X)
+model1<- lm(Y~X)
+model1
+plot(Y~X, col=X)
+abline(model1, col="blue", lwd=3)
+U<- iris[,"Petal.Width"]
+V<- iris[,"Petal.Length"]
+xycorr<- cor(U,V, method="pearson")
+xycorr
+plot(U~V, col=V)
+model2<- lm(U~V)
+model2
+plot(U~V, col=V)
+abline(model2, col="blue", lwd=3)
+p1<- predict(model1,data.frame("X"=20))
+p1
+p2<- predict(model2,data.frame("V"=15))
+p2
+
+
+
+
+7.DATA VISUALIZATION
+EX.NO: 07
+DATE:
+AIM: To create a data mining program for data visualization using R language.
+ALGORITHM
+STEP 1: Start the process.
+STEP 2: Declare the header packages.
+STEP 3: Scatterplot 3d function is used to visualize relationship between more than two
+ variables representing x,y,z coordinates in a 3 dimensional space.
+ scatteplot(randu$x,randu$y,randu$z)
+STEP 4: heatmap() function provide summary information and allows to understand
+ complex data set.
+. heatmap(distmatrix)
+STEP 5: contour function produces a contour plot with the areas between the contours filled
+ in solid color
+(filled.contour)
+STEP 6: This function draws perspective plots of a surface over the x–y plane. persp is a
+ generic function. The persp function generate 3D plot can be used to plot in other
+ functions in theta=25,phi=30.
+persp(volcano, theta=25, phi=30, expand=0.5, col="red")
+STEP 7: The parallel coordinates represent the unique data set.
+ parcoord(y[1:4],col=y$Ozone)
+STEP 8: Stop the process.
+7.DATA VISUALIZATION PROGRAM
+data(randu)
+library(scatterplot3d)
+scatterplot3d(randu$x,randu$y,randu$z)
+library(rgl)
+plot3d(randu$x,randu$y,randu$z)
+distmatrix<-as.matrix(dist(randu [,1:3]))
+heatmap(distmatrix)
+data(volcano)
+filled.contour(volcano, color=terrain.colors,asp=1,plot.axes=contour(volcano,add=T))
+persp(volcano, theta=25, phi=30, expand=0.5, col="red")
+data(airquality)
+y<-na.omit(airquality)
+library(MASS)
+parcoord(y [1:4], col= y$Ozone)
+#Line chart
+data(Airpassengers)
+plot(Airpassengers,type=”1”)
+#Piechart
+pie(table(iris$Species)
+
+
+
